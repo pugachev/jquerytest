@@ -3,6 +3,7 @@
     $username = 'mtake';  // MySQLのユーザ名
     $passwd   = 'Manabu2010';    // MySQLのパスワード
     $dbname   = 'jquerytest';    // データベース名
+    $result = null; //
     $link = mysqli_connect($host, $username, $passwd, $dbname);
     // 接続成功した場合
     if ($link) {
@@ -11,17 +12,14 @@
             $query = 'SELECT * FROM female';
             // クエリを実行します
             $result = mysqli_query($link, $query);
+            
             // 1行ずつ結果を配列で取得します
-            while ($row = mysqli_fetch_array($result)) {
-                // print $row['femalenumber'];
-                // print $row['femalename'];
-                // print $row['femalenote'];
-                // print "\n";
-            }
+
+          
             // 結果セットを開放します
-            mysqli_free_result($result);
+            // mysqli_free_result($result);
             // 接続を閉じます
-            mysqli_close($link);
+            // mysqli_close($link);
         // 接続失敗した場合
     } else {
         print 'DB接続失敗';
@@ -52,13 +50,11 @@
     <div class="wrap">
         <div class="content">
             <select name="color" style="width:100px;height: 30px;">
-                <option value="0">馬場典子</option>
-                <option value="1" selected>小澤陽子</option>
-                <option value="2">森香澄</option>
-                <option value="3">相場詩織</option>
-                <option value="4">上野愛奈</option>
-                <option value="5">堤礼実</option>
-                <option value="6">良原安美</option>
+                <?php
+                    foreach($result as $key=>$val){
+                        printf('<option value="%s">%s</option>', $val['femalenumber'],$val['femalename']);
+                    }
+                ?>
             </select>
         </div>
         <div class="content">
