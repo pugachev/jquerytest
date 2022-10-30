@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +27,13 @@
     <div class="wrap">
         <div class="content">
             <select name="color" style="width:50%;height: 30px;">
-            <option value="red">赤</option>
-            <option value="blue" selected>青</option>
-            <option value="yellow">黄</option>
+            <option value="0">馬場典子</option>
+            <option value="1" selected>小澤陽子</option>
+            <option value="2">森香澄</option>
+            <option value="3">相場詩織</option>
+            <option value="4">上野愛奈</option>
+            <option value="5">堤礼実</option>
+            <option value="6">良原安美</option>
           </select>
         </div>
         <div class="content">
