@@ -1,31 +1,18 @@
 <?php
-    $host = 'localhost'; // データベースのホスト名又はIPアドレス ※CodeCampでは「localhost」で接続できます
-    $username = 'mtake';  // MySQLのユーザ名
-    $passwd   = 'Manabu2010';    // MySQLのパスワード
-    $dbname   = 'jquerytest';    // データベース名
-    $link = mysqli_connect($host, $username, $passwd, $dbname);
-    // 接続成功した場合
-    if ($link) {
-            // 文字化け防止
-            mysqli_set_charset($link, 'utf8');
-            $query = 'SELECT * FROM female';
-            // クエリを実行します
-            $result = mysqli_query($link, $query);
-            // 1行ずつ結果を配列で取得します
-            while ($row = mysqli_fetch_array($result)) {
-                // print $row['femalenumber'];
-                // print $row['femalename'];
-                // print $row['femalenote'];
-                // print "\n";
-            }
-            // 結果セットを開放します
-            mysqli_free_result($result);
-            // 接続を閉じます
-            mysqli_close($link);
-        // 接続失敗した場合
-    } else {
-        print 'DB接続失敗';
-    }
+try 
+{
+    $db = new PDO('mysql:dbname=jquerytest;host=localhost;charset=utf8','mtake','Manabu2010');
+} 
+catch (PDOException $e) 
+{
+    echo 'DB接続エラー！: ' . $e->getMessage();
+}
+$stmt = $db->prepare('select * from female');
+$result=null;
+if($stmt->execute()){
+    $result = $stmt->fetchAll();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,22 +34,44 @@
             width:50%;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+    <script>
+    let selected=[];
+    
+
+    $(function() {
+        $('#female1').change(function(){
+            // alert($(this).val()+' '+$('[name=female1] option:selected').text());
+            selected.push($(this).val());
+        });
+        $('#female2').change(function(){
+            if(selected.length > 0){
+                $('#female2').children('option[value=3]').remove();
+            }
+        });
+    });
+    </script>
 </head>
 <body>
     <div class="wrap">
         <div class="content">
-            <select name="color" style="width:100px;height: 30px;">
-                <option value="0">馬場典子</option>
-                <option value="1" selected>小澤陽子</option>
-                <option value="2">森香澄</option>
-                <option value="3">相場詩織</option>
-                <option value="4">上野愛奈</option>
-                <option value="5">堤礼実</option>
-                <option value="6">良原安美</option>
+            <select id="female1" name="female1" style="width:100px;height: 30px;">
+                <?php foreach($result as $data): ?>
+                    <option value="<?php echo $data['femalenumber'] ?>"><?php echo $data['femalename'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="content">
+            <select id="female2" name="female2" style="width:100px;height: 30px;">
+                <?php foreach($result as $data): ?>
+                    <option value="<?php echo $data['femalenumber'] ?>"><?php echo $data['femalename'] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="content">
             <textarea name="kansou" rows="4" cols="40"></textarea>
         </div>
+    </div>
+    <script src="js/jquery-3.6.1.min.js"></script>
 </body>
 </html>
