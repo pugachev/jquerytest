@@ -15,10 +15,30 @@
             $('input[name=bijyo]').on('change', function(){
                 /// チェックされたvalue値を配列として取得
                 if($(this).val()==3){
-                    $('input[name=bijyo]:checked').map(function(){
-                        $('input[name=bijyo]:checked').prop('checked', false);
-                        $('input[name=bijyo]:checked').prop('disabled',true);
-                    });
+                    // let tmp = $('input[name=bijyo]:checked').map(function(){
+                    //     return $(this).val();
+                    // }).get();
+                    // tmp.splice(tmp.indexOf(3));
+                    // console.log($.isArray(　'3',tmp));
+                    // const aaa = [ 1, 15, 30, 45, 60, 75 ];
+                    // console.log(aaa.indexOf(30));
+
+                        let chk_status = $("input[value=3]").prop("checked");
+                        if(chk_status){
+                            tmp=[0,1,2];
+                            tmp.forEach(function(elem,index){
+                                $('input[value='+elem+']').prop('disabled',true);
+                                $('input[value='+elem+']').prop('checked',false);
+                                console.log(elem+'     '+index)
+                            });
+                        }else{
+                            tmp=[0,1,2];
+                            tmp.forEach(function(elem,index){
+                                $('input[value='+elem+']').prop('disabled',false);
+                                $('input[value='+elem+']').prop('checked',false);
+                                console.log(elem+'     '+index)
+                            });
+                        }
                 }
             });
         });
