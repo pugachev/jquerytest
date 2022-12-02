@@ -13,6 +13,17 @@ if($stmt->execute()){
     $result = $stmt->fetchAll();
 }
 
+// $stmt = $db->prepare('select id,PROVIDABLE_NUMBER_UNIT from courses where shop_id=6 and PROVIDABLE_NUMBER_TYPE=3');
+// $result=null;
+// if($stmt->execute()){
+//     $result = $stmt->fetchAll();
+//     var_dump($result);
+// }
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,8 +85,6 @@ if($stmt->execute()){
             // alert('Hello World!');
             console.log($(this).val());
         });
-
-
     });
     </script>
 </head>
